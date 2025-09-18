@@ -107,8 +107,8 @@ struct ObjetoFisico {
 		impulso.magnitud = 0.0f;
 		masa = m;
 		angulo = 0.0f;
-		elasticidad = 0.4f;
-		friccion = 0.1f;
+		elasticidad = 0.8f;//por defecto a 0.8f
+		friccion = 0.1f;//por defecto a 0.1f
 	}
 	
 	void ejercerImpulso(float nuevoAngulo, float magnitud, float deltaTime) {
@@ -116,7 +116,7 @@ struct ObjetoFisico {
 		impulso.direccion = polarToCartesiano({0, 0}, angulo, 1.0f); // dirección unitaria
 		impulso.magnitud = magnitud;
 		estado = aplicarImpulso(estado, impulso, masa, deltaTime);
-		corregirAngulo();
+		//corregirAngulo();
 		esCasiCero();
 		}
 		
@@ -128,14 +128,12 @@ struct ObjetoFisico {
 			}}
 		
 	void continuarImpulso(float deltaTime, float lv) {
-		//eliminar si algo sale mal
 		impulso.direccion = polarToCartesiano({0, 0}, angulo, 1.0f);
 		estado = aplicarImpulso(estado, impulso, masa, deltaTime);
 		limitarVelocidad(lv);
 		corregirAngulo();
 		aplicarFriccion(deltaTime);
 		esCasiCero();
-		
 		}
 	
 	void stop() {
@@ -199,6 +197,9 @@ int main() {
     SetTargetFPS(60);// tasa de fotogramas
     
     ObjetoFisico circulo(400,300);
+    circulo.masa=1.0;
+    circulo.elasticidad=1;
+    circulo.friccion=0;
     
 
     while (!WindowShouldClose()) {
@@ -218,7 +219,7 @@ int main() {
 			circulo.ejercerImpulso( mouseDirection, 4000, deltaTime);
 			}
 		circulo.ejercerImpulso( gradosToRadian(90), 95.5f, deltaTime);//Debe definirse primero un impulso
-		circulo.continuarImpulso(deltaTime, 100.0f);
+		circulo.continuarImpulso(deltaTime, 9000.0f);
 		if( circulo.estado.posicion.x > screenWidth || circulo.estado.posicion.x < 0 ){ circulo.mirrorW(); }
 		if( circulo.estado.posicion.y > screenHeight || circulo.estado.posicion.y < 0 ){ circulo.mirrorH(); }
 		
