@@ -21,7 +21,7 @@ struct Estado {  //Almacena la posicion en {x,y} y su velocidad {0,0}
 float gradosToRadian(float grados);//Convierte grados en radiante
 float radianToGrados(float radian);//Convierte radiante en grados
 float positionToAngulo(Vec2 punto, Vec2 centro);//Convierte el angulo 
-float positionToRadio(Vec2 punto, Vec2 centro);//Sirve para conseguir una distancia tambien
+float positionToRadio(Vec2 puntoA, Vec2 puntoB);//Sirve para conseguir una distancia tambien
 Vec2 polarToCartesiano(Vec2 zero,float a, float r);//Polar a cartesiano
 float lerp( float a, float b, float t);//Interpolacion 0.0 a 1.0
 
@@ -45,8 +45,8 @@ struct ObjetoFisico {
 	void continuarImpulso(float deltaTime, float limite); // Continua el impulso y añade una velocidad maxima de paso
 	void stop(); //Reduce la velocidad y magnitud a cero
 	float normalizarRadianes(float a); //Mantiene los radianes dentro de un limite claro
-	void mirrorH(); //Invierte direccion vertical
-	void mirrorW(); //Invierte direccion Horizontal
+	void mirrorH(float m=4.0f); //Invierte direccion vertical
+	void mirrorW(float m=4.0f); //Invierte direccion Horizontal
 	void corregirAngulo(); //Mantiene el angulo actualizado
 	void aplicarFriccion(float deltaTime); //Friccion dependiendo de deltatime
 	void esCasiCero(); //evita numeros infinitamente enanos

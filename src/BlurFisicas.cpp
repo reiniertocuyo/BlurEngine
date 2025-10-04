@@ -103,20 +103,20 @@ float ObjetoFisico::normalizarRadianes(float a) {
 	return a;
 	}
 
-void ObjetoFisico::mirrorH() {
+void ObjetoFisico::mirrorH(float m) {
 	estado.velocidad.y *= -elasticidad;
 	impulso.direccion.y *= -elasticidad;
 	angulo = -angulo; // reflejo vertical
-	angulo = normalizarRadianes(angulo);	
-	estado.posicion.y += polarToCartesiano( {0,0} , angulo, 4).y;
+	angulo = normalizarRadianes(angulo);
+	estado.posicion.y += polarToCartesiano( {0,0} , angulo, m).y;
 	}
 		
-void ObjetoFisico::mirrorW() {
+void ObjetoFisico::mirrorW(float m) {
 	estado.velocidad.x *= -elasticidad;
 	impulso.direccion.x *= -elasticidad;
 	angulo = pi - angulo; // reflejo horizontal
-	angulo = normalizarRadianes(angulo);	
-	estado.posicion.x += polarToCartesiano( {0,0} , angulo, 4).x;
+	angulo = normalizarRadianes(angulo);
+	estado.posicion.x += polarToCartesiano( {0,0} , angulo, m).x;
 	}
 
 void ObjetoFisico::corregirAngulo(){
