@@ -49,12 +49,12 @@ Actualmente incluye un módulo de físicas simple. El apartado gráfico y de col
 
 >La documentación no esta terminada, se ira actualizando progresivamente conforme avanza el desarrollo, sin embargo todas las funciones nombradas en el indice son reales y funcionales.
 
-## Tipo de Datos
-
+## Tipos de Datos
 - ### Vec2
 `Vec2` es una estructura que representa un vector en dos dimensiones. Almacena dos componentes numéricos: `x` y `y`, que se utilizan para describir posiciones, desplazamientos, velocidades, fuerzas, o cualquier sistema que requiera al menos dos valores tipo `float` para operar en el plano 2D.
 **Implementación basicá:**
 ```
+// Vec2 = { float x , float y }
 // Declaración
 Vec2 posicion = {0,0};
 
@@ -70,17 +70,62 @@ float posicionY = posicion.y; // Obtener unicamente la informacion de y
 ```
 
 - ### Impulso
-`Impulso` es una estructura que representa una dirección(`Vec2`) y una magnitud(`float`). Podemos entenderla simplemente como una fuerza aplicada en `x` y `y`. `Impulso{ direccion{x,y} , magnitud }`
+`Impulso` es una estructura que representa una dirección(`Vec2`) y una magnitud(`float`). Podemos entenderla simplemente como una fuerza aplicada en `x` y `y`.
 **Implementación basicá:**
 ```
+// Estado = { Vec2 direccion , float magnitud }
 // Declaración #1: Podemos declararla en su totalidad
-Impulso ejemplo1 = { {1,0} , 1.0f }; //Esto crearia un impulso a la derecha
+Impulso ejemplo1 = { {1,0} , 10.0f }; //Esto crearia un impulso a la derecha
 
-// Declaración #2: Podemos crear un Vec2 que contenga la direccion y luego cargarla al Impulso
-Vec2 direccion = {0,1};
-Impulso ejemplo2 = { direccion , 1.0f };
+// Declaración #2: Podemos crear los datos por separado y cargarlos después
+float fuerza = 10.0f;
+Vec2 apuntar = {0,1};
+Impulso ejemplo2 = { apuntar , fuerza };
+
+// Obtención de Información
+ejemplo1.direccion // Regresa un Vec2
+ejemplo1.direccion.x // Regresa un float
+ejemplo1.direccion.y // Regresa un float
+ejemplo1.magnitud // Regresa un float
 ```
 
+- ### Estado
+`Estado` es una estructura que almacena `posicion` y `velocidad` en un `Vec2` para cada uno, es fundalmental para el uso de la funcion `aplicarImpulso();` Entiendase como actualizar la posición actual y almacenar la velocidad alcanzada para una futura operación.
+**Implementación basicá:**
+```
+// Estado = { Vec2 posicion , Vec2 velocidad }
+// Declaración manual
+Estado ejemplo = { {32,32} , {10,0} }; // Esto lo movera a la derecha
+// Declaración por carga de datos
+Vec2 pos = {32, 32};
+Vec2 vel = { -10,0 }; // Esto lo movera a la izquierda
+Estado otroEjemplo =  { pos , vel };
+
+// Lectura de Información
+ejemplo.posicion // Regresa un Vec2
+ejemplo.posicion.x // Regresa un float con la posicion en x
+ejemplo.posicion.y // Regresa un float con la posicion en y
+ejemplo.velocidad // Regresa un Vec2
+ejemplo.velocidad.x // Regresa un float con la velocidad en x
+ejemplo.velocidad.y // Regresa un float con la velocidad en y
+```
+
+## Funciones
+- ### gradosToRadian();
+`gradosToRadian( float )` Funcion sencilla que convierte grados en radianes, recibe un `float` y regresa un `float`. Me resulto util porque varias operaciones matematicas en c++ funcionan con *radianes* pero no estoy acostumbrado a ese formato.
+**Uso basico:**
+```
+float angulo = 45;
+float anguloRadian = gradosToRadian( angulo ); // convierte 45 a 0,01745
+```
+
+- ### radianToGrados();
+`radianToGrados( float )` Contraparte de la función `gradosToRadian()` convierte radianes en grados, recibe un `float` y regresa un `float`. Me resulto util porque varias operaciones matematicas en c++ funcionan con *radianes* pero no estoy acostumbrado a ese formato.
+**Uso basico:**
+```
+float angulo = 45;
+float anguloRadian = gradosToRadian( angulo ); // convierte 45 a 0,01745
+```
 
 ## ¿Por qué?
 - **¿Por qué esto existe?**
